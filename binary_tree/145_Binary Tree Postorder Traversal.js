@@ -10,53 +10,53 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-
-//Recursive method
-var preorderTraversal = function(root) {
+var postorderTraversal = function(root) {
     const res = [];
-    const preorder = (cur) => {
+    const postorder = (cur) => {
         if(!cur) return;
+        postorder(cur.left);
+        postorder(cur.right);
         res.push(cur.val);
-        preorder(cur.left);
-        preorder(cur.right);
     }
-    preorder(root);
+    postorder(root);
     return res;
 };
 
 //Loop method
-var preorderTraversal = function(root) {
-    const st = []
+var postorderTraversal = function(root) {
     const res = [];
-    if(root) st.push(root);
+    const st = [];
+    if(root == null) return res;
+    st.push(root);
     while(st.length){
         let cur = st.pop();
-        res.push(cur.val);//Mid
-        if(cur.right) st.push(cur.right);//right
-        //Pushing left node in the end because that's what will be popped out soon to make it preorder
+        res.push(cur.val); //mid
         if(cur.left) st.push(cur.left);//left
+        if(cur.right) st.push(cur.right);//right
     }
-    return res;
+    return res.reverse();
 };
 
 //Unified loop method
-var preorderTraversal = function(root) {
-    const st = []
+var postorderTraversal = function(root) {
     const res = [];
-    if(root) st.push(root);
+    const st = [];
+    if(root == null) return res;
+    st.push(root);
     while(st.length){
         let cur = st[st.length - 1];
         if(cur){
             st.pop();
-            if(cur.right) st.push(cur.right);   //right
-            if(cur.left) st.push(cur.left);     //left
-            st.push(cur);                       //mid
+            st.push(cur);
             st.push(null);
+
+            if(cur.right) st.push(cur.right);
+            if(cur.left) st.push(cur.left);
         }else{
             st.pop();
             cur = st.pop();
             res.push(cur.val);
         }
     }
-    return res;
+    return res
 };
