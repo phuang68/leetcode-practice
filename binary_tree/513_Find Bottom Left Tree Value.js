@@ -35,11 +35,11 @@ var findBottomLeftValue = function (root) {
         }
         return;
     }
-    preOrder(root, 1);
+    preOrder(root, 1);//Assume the first node has a dep of 1;
     return maxLeftVal;
 };
 
-//Level order
+//Level order traversal, when we reach to the very last level, the first element is the bottom left node.
 var findBottomLeftValue = function (root) {
     const queue = [];
     if(root) queue.push(root);

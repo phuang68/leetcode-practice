@@ -16,9 +16,34 @@ var buildTree = function (inorder, postorder) {
     let inorder_right = inorder.slice(pivot + 1);
     let postorder_left = postorder.slice(0, inorder_left.length);
     let postorder_right = postorder.slice(inorder_left.length, postorder.length - 1);
-    
+
     root.left = buildTree(inorder_left, postorder_left);
     root.right = buildTree(inorder_right, postorder_right);
 
     return root;
+};
+
+//Without asking for more space
+const buildTree = (inorder, postorder) => {
+    const construct = (inS, inE, postS, postE) => {
+        if (postS > postE || inS > inE) { // Pointers intersect return null
+            return null;
+        }
+        const rootVal = postorder[postE];
+        const root = new TreeNode(rootVal);
+
+        let mid = inS;
+        for (; mid <= inE; mid++) {
+            if (inorder[mid] == rootVal) break;
+        }
+        //Number of nodes in the left tree
+        const leftNodeNum = mid - inS;
+
+        root.left = construct(inS, mid - 1, postS, postS + leftNodeNum - 1); //Left tree
+        root.right = construct(mid + 1, inE, postS + leftNodeNum, postE - 1); // Right tree
+
+        return root; // return constructed tree
+    };
+
+    return construct(0, inorder.length - 1, 0, postorder.length - 1);
 };

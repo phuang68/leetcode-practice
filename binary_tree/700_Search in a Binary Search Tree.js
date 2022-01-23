@@ -24,6 +24,7 @@ var searchBST = function (root, val) {
 
 //Recursive method
 var searchBST = function (root, val) {
+    //Terminating condition: when node is empty or the node with same val is found
     if (!root || root.val === val) return root;
 
     if (root.val > val) {
