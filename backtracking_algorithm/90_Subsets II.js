@@ -14,7 +14,7 @@ var subsetsWithDup = function (nums) {
         }
 
         for (let i = startIndex; i < nums.length; i++) {
-            if (i > startIndex && nums[i] === nums[i - 1]) continue;//Remove duplicate in the same level
+            if (i > startIndex && nums[i] === nums[i - 1]) continue;//Remove duplicate on the same level
             path.push(nums[i]);
             backtrack(nums, i + 1);
             path.pop();
