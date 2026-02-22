@@ -29,8 +29,10 @@ var partition = function (s) {
 
 function isPalindrome(string, start, end) {
     for (let i = start, j = end; i <= j; i++, j--) {
-        if (string[i] != string[j])
+        if (string[i] !== string[j])
             return false;
     }
     return true;
 }
+
+// Revisit time: 2025-02-22
